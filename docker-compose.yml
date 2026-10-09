@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # ComfyUI 跑在宿主机时用 host.docker.internal；也可以改成局域网 / 云端地址
+      COMFYUI_URL: ${COMFYUI_URL:-http://host.docker.internal:8188}
+      RMBG_MODEL: ${RMBG_MODEL:-RMBG-2.0}
+      SD_CHECKPOINT: ${SD_CHECKPOINT:-sd_xl_base_1.0.safetensors}
+      MAX_CONCURRENCY: ${MAX_CONCURRENCY:-2}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./data:/data
