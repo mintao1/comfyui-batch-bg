@@ -5,7 +5,13 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# 读取 .env（仓库根目录或 backend/ 下均可）；已存在的系统环境变量优先
+load_dotenv(BASE_DIR.parent / ".env")
+load_dotenv(BASE_DIR / ".env")
 
 
 def _env(name: str, default: str) -> str:
